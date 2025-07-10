@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Formulir Pengaduan Masyarakat - RSUD Tanjung Pura</title>
+  <style>
+    body { font-family: 'Segoe UI', sans-serif; background: #f8f9fa; color: #333; margin:0; }
+    .container { max-width: 800px; margin: 40px auto; background:#fff; padding:30px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1);}
+    .logo-langkat { display: flex; justify-content: center; align-items: center; margin-bottom: 16px; }
+    .logo-langkat img { height: 100px; width: auto; margin-bottom: 8px; }
+    h1 { text-align: center; color: #226b2f; margin-bottom: 30px; letter-spacing: 1px; font-weight: bold; }
+    label { font-weight: bold; display: block; margin-top: 20px; margin-bottom: 8px; color: #333; }
+    input[type="text"], input[type="tel"], textarea {
+      width: 100%; padding: 10px; border: 1px solid #ced4da;
+      border-radius: 5px; resize: vertical; font-size: 16px; box-sizing: border-box; color: #333;
+    }
+    .checkbox-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px 24px; margin-top: 4px;}
+    .checkbox-group label { font-weight: normal; display: flex; align-items: center; padding: 6px 0; color: #333; }
+    .checkbox-group input[type="checkbox"] { margin-right: 8px; accent-color: #226b2f; }
+    .submit-btn { display: block; width: 100%; background-color: #226b2f; color: #fff; border: none; padding: 12px; font-size: 16px; border-radius: 6px; margin-top: 30px; cursor: pointer; transition: background 0.2s; font-weight: bold; letter-spacing: 1px;}
+    .submit-btn:hover { background-color: #185222; }
+    .footer { margin-top: 40px; font-size: 14px; color: #333; }
+    .footer-center { display: flex; flex-direction: column; align-items: center; margin-top: 24px; }
+    .footer-center .footer-date { display: flex; flex-direction: column; align-items: center; margin-bottom: 28px; }
+    .footer-center .footer-date label { margin: 0; font-size: 14px; font-weight: normal; color: #333; }
+    .footer-center .footer-nama-label { margin: 0 0 16px 0; font-size: 14px; font-weight: normal; color: #333; text-align: center; }
+    .footer input[type="text"] {
+      width: auto; min-width: 120px; display: inline-block; border: none; border-bottom: 1px solid #999;
+      background: transparent; font-size: 14px; padding: 2px 4px; color: #333; text-align: center; margin: 0 auto;
+    }
+    .footer .footer-nama { border: none; border-bottom: 1px solid #999; padding: 2px 4px; background: transparent; font-size: 14px; color: #333; width: auto; min-width: 120px; display: inline-block; text-align: center; margin: 0 auto; }
+    .footer-paren { text-align: center; margin-top: 10px; }
+    .popup-berhasil {
+      display: none; position: fixed; z-index: 9999; left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.33); justify-content: center; align-items: center; transition: opacity 0.2s;
+    }
+    .popup-berhasil.show { display: flex; }
+    .popup-box {
+      background: #fff; border-radius: 10px; padding: 32px 24px 24px 24px; min-width: 280px; max-width: 90vw;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15); text-align: center; color: #226b2f; animation: popin 0.22s cubic-bezier(.19,1,.22,1);
+    }
+    .popup-box h2 { margin-top: 0; color: #226b2f; font-size: 22px; letter-spacing: 1px; }
+    .popup-box .close-btn {
+      margin-top: 24px; padding: 8px 24px; background: #226b2f; color: #fff; border: none; border-radius: 5px;
+      font-size: 15px; cursor: pointer; font-weight: bold; transition: background 0.2s;
+    }
+    .popup-box .close-btn:hover { background: #185222; }
+    @keyframes popin { from { transform: scale(0.8); opacity: 0; } to   { transform: scale(1); opacity: 1; } }
+    .site-footer {
+      width: 100%; background: #226b2f; color: #fff; text-align: center; font-size: 14px;
+      padding: 18px 0 12px 0; margin-top: 56px; letter-spacing: 0.5px; position: relative; z-index: 1;
+    }
+    .site-footer a { color: #fff; text-decoration: underline; transition: color 0.2s; }
+    .site-footer a:hover { color: #b6f0cf; }
+    @media (max-width: 600px) {
+      .container {padding: 16px;}
+      .checkbox-group {grid-template-columns: 1fr; gap: 5px 0;}
+      .logo-langkat img {height: 70px;}
+      .popup-box {padding: 18px 8px 12px 8px;}
+      .site-footer {font-size: 13px;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo-langkat">
+      <img src="rsud1.png" alt="Logo Kabupaten Langkat">
+    </div>
+    <h1>Formulir Pengaduan Masyarakat</h1>
+    <form id="form-pengaduan" autocomplete="off">
+      <label for="nama">Nama:</label>
+      <input type="text" id="nama" name="nama" required>
+
+      <label for="identitas">Identitas:</label>
+      <input type="text" id="identitas" name="identitas">
+
+      <label for="alamat">Alamat:</label>
+      <textarea id="alamat" name="alamat" rows="3"></textarea>
+
+      <label for="pekerjaan">Pekerjaan:</label>
+      <input type="text" id="pekerjaan" name="pekerjaan">
+
+      <label for="nohp">No. HP:</label>
+      <input type="tel" id="nohp" name="nohp">
+
+      <label>Unit Pelayanan Yang Dikeluhkan:</label>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="unit[]" value="IGD"> IGD</label>
+        <label><input type="checkbox" name="unit[]" value="RAWAT JALAN"> Rawat Jalan/Poliklinik</label>
+        <label><input type="checkbox" name="unit[]" value="RAWAT INAP"> Rawat Inap</label>
+        <label><input type="checkbox" name="unit[]" value="RADIOLOGI"> Radiologi</label>
+        <label><input type="checkbox" name="unit[]" value="KAMAR OPERASI"> Kamar Operasi</label>
+        <label><input type="checkbox" name="unit[]" value="ICU/ICCU"> ICU/ICCU</label>
+        <label><input type="checkbox" name="unit[]" value="NICU/PICU"> NICU/PICU</label>
+        <label><input type="checkbox" name="unit[]" value="LABORATORIUM"> Laboratorium</label>
+        <label><input type="checkbox" name="unit[]" value="FARMASI"> Farmasi/Apotek</label>
+        <label><input type="checkbox" name="unit[]" value="PENDAFTARAN"> Pendaftaran</label>
+        <label><input type="checkbox" name="unit[]" value="PARKIR"> Parkir</label>
+        <label><input type="checkbox" name="unit[]" value="REHABILITASI MEDIK"> Rehabilitasi Medik</label>
+        <label><input type="checkbox" name="unit[]" value="AMBULANCE"> Ambulance</label>
+        <label><input type="checkbox" name="unit[]" value="UTDRS"> UTDRS</label>
+      </div>
+
+      <label for="pengaduan">Hal Yang Diadukan:</label>
+      <textarea id="pengaduan" name="pengaduan" rows="6"></textarea>
+
+      <label for="saran">Saran Perbaikan:</label>
+      <textarea id="saran" name="saran" rows="6"></textarea>
+
+      <div class="footer">
+        <div class="footer-center">
+          <div class="footer-date">
+            <label for="tanggal" style="margin-bottom: 4px;">Tanjung Pura,</label>
+            <input type="text" id="tanggal" readonly value="">
+          </div>
+          <div class="footer-nama-label">
+            Yang Memberi Pengaduan:
+          </div>
+          <div class="footer-paren">
+            (<span id="footer-nama" class="footer-nama">&nbsp;</span>)
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">Kirim Pengaduan</button>
+    </form>
+  </div>
+
+  <!-- Popup Berhasil -->
+  <div class="popup-berhasil" id="popup-berhasil">
+    <div class="popup-box">
+      <h2>Pengaduan Berhasil Dikirim!</h2>
+      <p>Terima kasih atas pengaduan Anda.<br>
+      Kami akan segera memproses laporan Anda.<br>
+      </p>
+      <button class="close-btn" onclick="closePopup()">Tutup</button>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    &copy; 2025 <a href="https://rsudtanjungpura.langkatkab.go.id/" target="_blank" rel="noopener">RSUD Tanjung Pura</a> |
+    Formulir Pengaduan Masyarakat
+    <br>
+    Jl. Jend. Sudirman No.1, Tanjung Pura, Kabupaten Langkat, Sumatera Utara
+  </footer>
+
+  <script>
+    // Set tanggal otomatis
+    function setTanggalNow() {
+      const bulan = ["Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember"];
+      let now = new Date();
+      let tgl = now.getDate() + " " + bulan[now.getMonth()] + " " + now.getFullYear();
+      document.getElementById('tanggal').value = tgl;
+    }
+    setTanggalNow();
+
+    // Isi otomatis nama pemberi pengaduan pada footer dari input nama
+    const namaInput = document.getElementById('nama');
+    const footerNama = document.getElementById('footer-nama');
+    function updateFooterNama() {
+      footerNama.textContent = namaInput.value.trim() || "\u00A0";
+    }
+    namaInput.addEventListener('input', updateFooterNama);
+    window.addEventListener('DOMContentLoaded', updateFooterNama);
+
+    function getCheckedValues(name) {
+      return Array.from(document.querySelectorAll('input[name="'+name+'"]:checked'))
+          .map(cb => cb.parentElement.textContent.trim());
+    }
+
+    // Submit ke Google Apps Script
+    document.getElementById('form-pengaduan').addEventListener('submit', function(e){
+      e.preventDefault();
+      const form = this;
+      const data = {
+        nama: form.nama.value,
+        identitas: form.identitas.value,
+        alamat: form.alamat.value,
+        pekerjaan: form.pekerjaan.value,
+        nohp: form.nohp.value,
+        unit: getCheckedValues('unit[]').join(', '),
+        pengaduan: form.pengaduan.value,
+        saran: form.saran.value,
+        tanggal: document.getElementById('tanggal').value
+      };
+
+   fetch('https://script.google.com/macros/s/AKfycbzWiaFvYmV-cqlLdpJnkzF8-eZ2819tgR7kmsSO0RPMJU5I169PH4st7kjHreH9vRi8/exec', {
+  method: 'POST',
+  body: JSON.stringify(data),
+  headers: {
+    // GANTI JSON ke PLAIN supaya Google Apps Script bisa terima tanpa OPTIONS
+    'Content-Type': 'text/plain'
+  }
+})
+.then(res => res.json())
+.then(res => {
+    document.getElementById('popup-berhasil').classList.add('show');
+    form.reset();
+    setTanggalNow();
+    updateFooterNama();
+})
+.catch(err => {
+    alert('Gagal mengirim ke Google Sheet: ' + err.message);
+});
+    });
+
+    function closePopup() {
+      document.getElementById('popup-berhasil').classList.remove('show');
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    document.getElementById('popup-berhasil').addEventListener('click', function(e){
+      if (e.target === this) closePopup();
+    });
+  </script>
+</body>
+</html>
